@@ -1,6 +1,5 @@
 <?php 
 require 'src/conta.php';
 
-$conta = criarConta('123.345.567.89', 'Willyam', 3000);
+$conta = new Conta();
 
-var_dump($conta);
