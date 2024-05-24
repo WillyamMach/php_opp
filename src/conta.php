@@ -1,8 +1,8 @@
 <?php
 class Conta {
-    public string $cpfTitular;
-    public float $saldo = 0;
-    public string $nomeTitular;
+    private string $cpfTitular;
+    private float $saldo = 0;
+    private string $nomeTitular;
 
     public function sacar(float $valorSacar): void {
         if ($valorSacar > $this->saldo) {
