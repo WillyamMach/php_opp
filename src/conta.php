@@ -1,8 +1,29 @@
 <?php
 class Conta {
     private string $cpfTitular;
-    private float $saldo = 0;
     private string $nomeTitular;
+    private float $saldo;
+    private static $numeroDeContas = 0;
+
+    
+    public function __construct(string $cpfTitular, string $nomeTitular) {
+        $this->cpfTitular = $cpfTitular;
+        $this->validaNomeTitular($nomeTitular);
+        $this->saldo = 0;
+        self::$numeroDeContas++;
+    }
+
+    public function __destruct() {
+        if(self::$numeroDeContas > 2) {
+            self::$numeroDeContas--;
+        }
+    }
+
+    private function validaNomeTitular (string $nomeTitular){ 
+        if(strlen($nomeTitular) < 5) {
+            echo "Nome precisa ter no minimo 5 caracteres";
+        }
+    }
 
     public function sacar(float $valorSacar): void {
         if ($valorSacar > $this->saldo) {
@@ -31,12 +52,8 @@ class Conta {
         $contaDestino->depositar($valorTransferir);     
     }
 
-    public function adicionarNome(string $nome) {
-        $this->nomeTitular = $nome;
-    }
-
-    public function adicionarCpf(string $cpf) {
-        $this->cpfTitular = $cpf;
+    public static function recuperaNumeroDeContas(): int {
+        return self::$numeroDeContas;
     }
 
     public function recuperarSaldo(): float {
