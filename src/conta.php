@@ -1,14 +1,12 @@
 <?php
 class Conta {
-    private string $cpfTitular;
-    private string $nomeTitular;
+    private $titular;
     private float $saldo;
     private static $numeroDeContas = 0;
 
     
-    public function __construct(string $cpfTitular, string $nomeTitular) {
-        $this->cpfTitular = $cpfTitular;
-        $this->validaNomeTitular($nomeTitular);
+    public function __construct(Titular $titular) {
+        $this->titular = $titular;
         $this->saldo = 0;
         self::$numeroDeContas++;
     }
@@ -16,12 +14,6 @@ class Conta {
     public function __destruct() {
         if(self::$numeroDeContas > 2) {
             self::$numeroDeContas--;
-        }
-    }
-
-    private function validaNomeTitular (string $nomeTitular){ 
-        if(strlen($nomeTitular) < 5) {
-            echo "Nome precisa ter no minimo 5 caracteres";
         }
     }
 
@@ -60,11 +52,12 @@ class Conta {
         return $this->saldo;
     }
 
-    public function recuperarCpfTitular(): string {
-        return $this->cpfTitular;
+    public function recuperaNomeTitular(): string {
+        return $this.titular->recuperaNome();
     }
 
-    public function recuperarNomeTitular(): string { 
-        return $this->nomeTitular;
+    public function recuperaCpfTitular(): string {
+        return $this.titular->recuperaCpf();
     }
+
 }
